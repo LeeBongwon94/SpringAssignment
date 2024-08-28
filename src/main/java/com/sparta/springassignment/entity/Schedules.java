@@ -1,7 +1,6 @@
 package com.sparta.springassignment.entity;
 
 import com.sparta.springassignment.dto.SchedulesRequestDto;
-import com.sparta.springassignment.dto.SchedulesResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,11 +36,11 @@ public class Schedules {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
-    LocalDateTime created_at;
+    LocalDateTime createdAt;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    LocalDateTime updated_at;
+    LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "schedules")
     List<Comments> commentsList = new ArrayList<>();

@@ -31,11 +31,11 @@ public class Comments {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
-    LocalDateTime created_at;
+    LocalDateTime createdAt;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    LocalDateTime updated_at;
+    LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id")
