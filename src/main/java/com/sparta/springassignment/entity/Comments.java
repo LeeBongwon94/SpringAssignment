@@ -1,7 +1,6 @@
 package com.sparta.springassignment.entity;
 
-import com.sparta.springassignment.dto.SchedulesRequestDto;
-import com.sparta.springassignment.dto.SchedulesResponseDto;
+import com.sparta.springassignment.dto.CommentsRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,28 +10,23 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "schedules")
+@Table(name = "comments")
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Schedules {
+public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long schedule_id;
-
-    @Column(name = "username", nullable = false, length = 20)
-    String username;
-
-    @Column(name = "title", nullable = false, length = 50)
-    String title;
+    Long comment_id;
 
     @Column(name = "contents", nullable = false, length = 100)
     String contents;
+
+    @Column(name = "comments_user", nullable = false, length = 20)
+    String comments_user;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,18 +37,16 @@ public class Schedules {
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime updated_at;
 
-    @OneToMany(mappedBy = "schedules")
-    List<Comments> commentsList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    Schedules schedules;
 
-    public Schedules(SchedulesRequestDto requestDto){
-        this.username = requestDto.getUsername();
-        this.title = requestDto.getTitle();
+    public Comments(CommentsRequestDto requestDto){
         this.contents = requestDto.getContents();
+        this.comments_user = requestDto.getComments_user();
     }
 
-    public void update(SchedulesRequestDto requestDto){
-        this.username = requestDto.getUsername();
-        this.title = requestDto.getTitle();
+    public void update(CommentsRequestDto requestDto) {
         this.contents = requestDto.getContents();
     }
 }
