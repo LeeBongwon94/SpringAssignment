@@ -6,6 +6,7 @@ import com.sparta.springassignment.service.SchedulesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,13 @@ public class SchedulesController {
 
     // 일정 수정
     @PutMapping("/schedules/{schedule_id}")
-    public SchedulesResponseDto editSchedule(@PathVariable Long schedule_id, @RequestBody SchedulesRequestDto requestDto){
+    public SchedulesResponseDto updateSchedule(@PathVariable Long schedule_id, @RequestBody SchedulesRequestDto requestDto){
         return scheduleService.updateSchedule(schedule_id, requestDto);
+    }
+
+    // 일정 삭제
+    @DeleteMapping("/schedules/{schedule_id}")
+    public void deleteSchedule(@PathVariable Long schedule_id){
+        scheduleService.deleteSchedule(schedule_id);
     }
 }

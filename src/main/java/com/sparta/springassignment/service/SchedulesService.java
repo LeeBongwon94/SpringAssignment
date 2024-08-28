@@ -45,4 +45,9 @@ public class SchedulesService {
 
         return new SchedulesResponseDto().toDtoList(page);
     }
+
+    public void deleteSchedule(Long scheduleId) {
+        Schedules schedules = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
+        scheduleRepository.delete(schedules);
+    }
 }

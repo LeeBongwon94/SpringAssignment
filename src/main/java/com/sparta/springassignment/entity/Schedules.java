@@ -42,7 +42,7 @@ public class Schedules {
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "schedules")
+    @OneToMany(mappedBy = "schedules", cascade = CascadeType.REMOVE)
     List<Comments> commentsList = new ArrayList<>();
 
     public Schedules(SchedulesRequestDto requestDto){
