@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class CommentsRequestDto {
-    String contents;
-    String comments_user;
+    private String contents;
+    private String comments_user;
 }

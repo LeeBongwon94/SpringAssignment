@@ -2,11 +2,12 @@ package com.sparta.springassignment.controller;
 
 import com.sparta.springassignment.dto.SchedulesRequestDto;
 import com.sparta.springassignment.dto.SchedulesResponseDto;
+import com.sparta.springassignment.dto.UserResponseDto;
+import com.sparta.springassignment.entity.Users;
 import com.sparta.springassignment.service.SchedulesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +52,12 @@ public class SchedulesController {
     @DeleteMapping("/schedules/{schedule_id}")
     public void deleteSchedule(@PathVariable Long schedule_id){
         scheduleService.deleteSchedule(schedule_id);
+    }
+
+    // 담당 유저 배치
+    @PostMapping("/schedules/{schedule_id}/{user_id}")
+    //public List<SchedulesResponseDto> addUser(@PathVariable Long schedule_id, @PathVariable Long user_id){
+    public List<UserResponseDto> addUser(@PathVariable Long schedule_id, @PathVariable Long user_id){
+        return scheduleService.addUser(schedule_id, user_id);
     }
 }

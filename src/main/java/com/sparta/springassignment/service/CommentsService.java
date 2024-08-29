@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,8 +19,8 @@ public class CommentsService {
     private final CommentsRepository commentsRepository;
     private final SchedulesRepository schedulesRepository;
 
-    public CommentsResponseDto createComment(CommentsRequestDto requestDto, Long scheduleId) {
-        Schedules schedules = schedulesRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
+    public CommentsResponseDto createComment(CommentsRequestDto requestDto, Long schedule_id) {
+        Schedules schedules = schedulesRepository.findById(schedule_id).orElseThrow(NullPointerException::new);
 
         Comments comments = new Comments(requestDto);
         comments.setSchedules(schedules);
@@ -37,20 +36,23 @@ public class CommentsService {
 
     // 댓글 단건 조회
     public CommentsResponseDto getComment(Long comment_id){
-        Comments comments = commentsRepository.findById(comment_id).orElseThrow(NullPointerException::new);
-        return new CommentsResponseDto(comments);
+        return new CommentsResponseDto(commentsFindById(comment_id));
     }
 
     @Transactional
     public CommentsResponseDto updateComment(Long comment_id, CommentsRequestDto requestDto) {
-        Comments comments = commentsRepository.findById(comment_id).orElseThrow(NullPointerException::new);
+        Comments comments = commentsFindById(comment_id);
         comments.update(requestDto);
 
         return new CommentsResponseDto(comments);
     }
 
     public void deleteComment(Long comment_id){
-        Comments comments = commentsRepository.findById(comment_id).orElseThrow(NullPointerException::new);
+        Comments comments = commentsFindById(comment_id);
         commentsRepository.delete(comments);
+    }
+
+    public Comments commentsFindById(Long comment_id){
+        return commentsRepository.findById(comment_id).orElseThrow(NullPointerException::new);
     }
 }

@@ -20,26 +20,26 @@ import java.time.LocalDateTime;
 public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long comment_id;
+    private Long comment_id;
 
     @Column(name = "contents", nullable = false, length = 100)
-    String contents;
+    private String contents;
 
     @Column(name = "comments_user", nullable = false, length = 20)
-    String comments_user;
+    private String comments_user;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id")
-    Schedules schedules;
+    private Schedules schedules;
 
     public Comments(CommentsRequestDto requestDto){
         this.contents = requestDto.getContents();

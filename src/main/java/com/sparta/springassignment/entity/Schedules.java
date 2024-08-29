@@ -22,37 +22,40 @@ import java.util.List;
 public class Schedules {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long schedule_id;
-
-    @Column(name = "username", nullable = false, length = 20)
-    String username;
+    private Long schedule_id;
 
     @Column(name = "title", nullable = false, length = 50)
-    String title;
+    private String title;
+
+    @Column(name = "user_id", nullable = false, length = 20)
+    private Long user_id;
 
     @Column(name = "contents", nullable = false, length = 100)
-    String contents;
+    private String contents;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "schedules", cascade = CascadeType.REMOVE)
-    List<Comments> commentsList = new ArrayList<>();
+    private List<Comments> commentsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "schedulesManage")
+    private List<Manage> manageList = new ArrayList<>();
 
     public Schedules(SchedulesRequestDto requestDto){
-        this.username = requestDto.getUsername();
+        this.user_id = requestDto.getUser_id();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
 
     public void update(SchedulesRequestDto requestDto){
-        this.username = requestDto.getUsername();
+        this.user_id = requestDto.getUser_id();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
